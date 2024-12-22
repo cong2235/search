@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from utils import load_embeddings, create_faiss_index, search_similar_sentence_faiss
 import os
+import uvicorn
 # Tạo ứng dụng FastAPI
 app = FastAPI()
 
@@ -34,4 +35,6 @@ def search_sentence(request: SearchRequest):
         return {"input_sentence": request.input_sentence, "message": "No similar sentence found."}
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    port = int(os.environ.get("PORT", 5000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
+
