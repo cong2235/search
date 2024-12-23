@@ -3,3 +3,4 @@ scikit-learn
 numpy
 gdown
 flask_cors
+gunicorn
