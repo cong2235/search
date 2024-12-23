@@ -12,6 +12,9 @@ API_KEY = '5RYAGSKVHV1P1EM0MOP5PNNE37O3PIQI'
 
 # URL của API Sapling
 SAPLING_API_URL = 'https://api.sapling.ai/api/v1/edits'
+@app.route('/')
+def index():
+    return 'Hello, World!'
 
 @app.route('/search', methods=['POST'])
 def search_sentence():
