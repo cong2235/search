@@ -13,23 +13,15 @@ CORS(app)
 # URL chia sẻ của các tệp trên Google Drive
 url_vectorizer = 'https://drive.google.com/uc?id=19v7W6fafUWyUJYBjdyqL72jMxBkK5L-4'
 url_matrix = 'https://drive.google.com/uc?id=1-WNsrUwKUJlt_RsLnBGlKkmRoMzTGv50'
+output_vectorizer = 'tfidf_vectorizer.pkl'
+output_matrix = 'tfidf_matrix.pkl'
 
-# Đường dẫn lưu tệp trong Persistent Storage
-persistent_dir = '/persistent'
-vectorizer_path = os.path.join(persistent_dir, 'tfidf_vectorizer.pkl')
-matrix_path = os.path.join(persistent_dir, 'tfidf_matrix.pkl')
+# Tải các tệp từ Google Drive
+gdown.download(url_vectorizer, output_vectorizer, quiet=False)
+gdown.download(url_matrix, output_matrix, quiet=False)
 
-# Tải các tệp từ Google Drive nếu chưa tồn tại
-def download_files():
-    if not os.path.exists(persistent_dir):
-        os.makedirs(persistent_dir)
-    if not os.path.exists(vectorizer_path):
-        gdown.download(url_vectorizer, vectorizer_path, quiet=False)
-    if not os.path.exists(matrix_path):
-        gdown.download(url_matrix, matrix_path, quiet=False)
-
-# Tải TF-IDF vectorizer và ma trận TF-IDF
-def load_tfidf():
+# Tải TF-IDF vectorizer và ma trận TF-IDF đã giảm chiều
+def load_tfidf(vectorizer_path='tfidf_vectorizer.pkl', matrix_path='tfidf_matrix.pkl'):
     with open(vectorizer_path, 'rb') as f:
         vectorizer = pickle.load(f)
     with open(matrix_path, 'rb') as f:
@@ -72,12 +64,7 @@ def search_sentence():
         return jsonify({"input_sentence": input_sentence, "results": "No similar sentence found."})
 
 if __name__ == '__main__':
-    # Tải tệp từ Google Drive nếu cần
-    download_files()
-    
     # Tải TF-IDF index từ các tệp .pkl
     vectorizer, reduced_matrix = load_tfidf()
-    
-    # Chạy server Flask
     port = int(os.environ.get("PORT", 5001))  # Render cung cấp biến PORT
     app.run(host='0.0.0.0', port=port)
