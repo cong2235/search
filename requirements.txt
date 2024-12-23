@@ -1,8 +1,4 @@
-fastapi
-uvicorn
-transformers
-torch
+flask
+scikit-learn
 numpy
-tqdm
-pydantic
 gdown
