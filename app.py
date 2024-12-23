@@ -7,6 +7,7 @@ from sklearn.decomposition import TruncatedSVD
 from difflib import SequenceMatcher
 import gdown
 import os
+from urllib.parse import quote as url_quote  # Thay thế url_quote
 
 app = Flask(__name__)
 CORS(app)
@@ -17,6 +18,7 @@ url_matrix = 'https://drive.google.com/uc?id=11YiXU9gJn-xEcezK8M5UYLWhXG5NOJyp'
 file_path = 'https://drive.google.com/uc?id=1ez0CHg9P6FNZIY-rT6R_uY-jgTgaDD_P'
 output_vectorizer = 'tfidf_vectorizer.pkl'
 output_matrix = 'tfidf_matrix.pkl'
+
 
 # Tải các tệp từ Google Drive
 gdown.download(url_vectorizer, output_vectorizer, quiet=False)
