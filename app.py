@@ -7,10 +7,15 @@ import gdown
 
 app = Flask(__name__)
 
-# URL chia sẻ của tệp trên Google Drive
-url = 'https://drive.google.com/uc?id=1mMznGAmltidr2RHg-lZiIk8UWkJVKVwu'
-output = 't1.txt'
-gdown.download(url, output, quiet=False)
+# URL chia sẻ của các tệp trên Google Drive
+url_vectorizer = 'https://drive.google.com/uc?id=1RSa-aoe-0sLyqa2BmzDm2v9X4fr4-2rV'
+url_matrix = 'https://drive.google.com/uc?id=1EZDwANQ7_1YvEUmkaU4l-8CGSwjkJ-z9'
+output_vectorizer = 'tfidf_vectorizer.pkl'
+output_matrix = 'tfidf_matrix.pkl'
+
+# Tải các tệp từ Google Drive
+gdown.download(url_vectorizer, output_vectorizer, quiet=False)
+gdown.download(url_matrix, output_matrix, quiet=False)
 
 # Tải TF-IDF vectorizer và ma trận TF-IDF đã giảm chiều
 def load_tfidf(vectorizer_path='tfidf_vectorizer.pkl', matrix_path='tfidf_matrix.pkl'):
