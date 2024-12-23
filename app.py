@@ -53,7 +53,7 @@ def search_sentence():
             found = True
 
     if not found:
-        return jsonify({"input_sentence": input_sentence, "message": "No similar sentence found."})
+        return jsonify({"input_sentence": input_sentence, "results": "No similar sentence found."})
 
 if __name__ == '__main__':
     # Tải TF-IDF index từ các tệp .pkl
