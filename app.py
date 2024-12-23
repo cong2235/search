@@ -13,9 +13,9 @@ app = Flask(__name__)
 CORS(app)
 
 # URL chia sẻ của các tệp trên Google Drive
-url_vectorizer = 'https://drive.google.com/uc?id=1PYaVk9PGrlJlpICBbkh8WqTnRTvuJ1R9'
-url_matrix = 'https://drive.google.com/uc?id=11YiXU9gJn-xEcezK8M5UYLWhXG5NOJyp'
-file_path = 'https://drive.google.com/uc?id=1ez0CHg9P6FNZIY-rT6R_uY-jgTgaDD_P'
+url_vectorizer = 'https://drive.google.com/uc?id=1rqet7YyMLa1xGVSZTBz4FsxsrjaQdweR'
+url_matrix = 'https://drive.google.com/uc?id=1tDoc0fcotGlPaAERFkGt5wSMUrmzJrD0'
+file_path = 'https://drive.google.com/uc?id=1NbLPC2_OLjC5JacajhznmbKItOOVIwHH'
 output_vectorizer = 'tfidf_vectorizer.pkl'
 output_matrix = 'tfidf_matrix.pkl'
 
