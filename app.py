@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pickle
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from difflib import SequenceMatcher
 import gdown
+import os
 
 app = Flask(__name__)
+CORS(app)  # Thêm dòng này để kích hoạt CORS
 
 # URL chia sẻ của các tệp trên Google Drive
 url_vectorizer = 'https://drive.google.com/uc?id=1RSa-aoe-0sLyqa2BmzDm2v9X4fr4-2rV'
@@ -63,4 +66,5 @@ def search_sentence():
 if __name__ == '__main__':
     # Tải TF-IDF index từ các tệp .pkl
     vectorizer, reduced_matrix = load_tfidf()
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render cung cấp biến PORT
+    app.run(host='0.0.0.0', port=port)
