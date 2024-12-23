@@ -3,7 +3,6 @@ uvicorn
 transformers
 torch
 numpy
-faiss-cpu
 tqdm
 pydantic
 gdown
