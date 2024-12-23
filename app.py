@@ -11,8 +11,8 @@ app = Flask(__name__)
 CORS(app)
 
 # URL chia sẻ của các tệp trên Google Drive
-url_vectorizer = 'https://drive.google.com/uc?id=1RSa-aoe-0sLyqa2BmzDm2v9X4fr4-2rV'
-url_matrix = 'https://drive.google.com/uc?id=1EZDwANQ7_1YvEUmkaU4l-8CGSwjkJ-z9'
+url_vectorizer = 'https://drive.google.com/uc?id=19v7W6fafUWyUJYBjdyqL72jMxBkK5L-4'
+url_matrix = 'https://drive.google.com/uc?id=1-WNsrUwKUJlt_RsLnBGlKkmRoMzTGv50'
 
 # Đường dẫn lưu tệp trong Persistent Storage
 persistent_dir = '/persistent'
