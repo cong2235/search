@@ -3,12 +3,12 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import os
-
+from urllib.parse import quote as url_quote
 app = Flask(__name__)
 CORS(app)
 
 # API Key của Sapling
-API_KEY = 'YOUR_SAPLING_API_KEY'
+API_KEY = '5RYAGSKVHV1P1EM0MOP5PNNE37O3PIQI'
 
 # URL của API Sapling
 SAPLING_API_URL = 'https://api.sapling.ai/api/v1/edits'
