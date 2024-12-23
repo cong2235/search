@@ -8,7 +8,7 @@ import gdown
 import os
 
 app = Flask(__name__)
-CORS(app)  # Thêm dòng này để kích hoạt CORS
+CORS(app)
 
 # URL chia sẻ của các tệp trên Google Drive
 url_vectorizer = 'https://drive.google.com/uc?id=1RSa-aoe-0sLyqa2BmzDm2v9X4fr4-2rV'
@@ -66,5 +66,5 @@ def search_sentence():
 if __name__ == '__main__':
     # Tải TF-IDF index từ các tệp .pkl
     vectorizer, reduced_matrix = load_tfidf()
-    port = int(os.environ.get("PORT", 5001))  # Render cung cấp biến PORT
+    port = int(os.environ.get("PORT", 5001))  # Sử dụng cổng 5001 thay vì 5000
     app.run(host='0.0.0.0', port=port)
