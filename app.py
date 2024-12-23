@@ -66,5 +66,5 @@ def search_sentence():
 if __name__ == '__main__':
     # Tải TF-IDF index từ các tệp .pkl
     vectorizer, reduced_matrix = load_tfidf()
-    port = int(os.environ.get("PORT", 5001))  # Sử dụng cổng 5001 thay vì 5000
+    port = int(os.environ.get("PORT", 5001))
     app.run(host='0.0.0.0', port=port)
