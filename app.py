@@ -13,6 +13,7 @@ CORS(app)
 # URL chia sẻ của các tệp trên Google Drive
 url_vectorizer = 'https://drive.google.com/uc?id=19v7W6fafUWyUJYBjdyqL72jMxBkK5L-4'
 url_matrix = 'https://drive.google.com/uc?id=1-WNsrUwKUJlt_RsLnBGlKkmRoMzTGv50'
+file_path = 'https://drive.google.com/uc?id=12wZ2YBcFEqz3O4Ht6YYOzMkwrszAvDQR'
 output_vectorizer = 'tfidf_vectorizer.pkl'
 output_matrix = 'tfidf_matrix.pkl'
 
