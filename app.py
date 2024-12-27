@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from elasticsearch import Elasticsearch
-from difflib import SequenceMatcher
 from waitress import serve
 
 app = Flask(__name__)
@@ -15,36 +14,38 @@ es = Elasticsearch(
 
 index_name = "japanese_sentences"
 
-def calculate_similarity(a, b):
-    return SequenceMatcher(None, a, b).ratio()
-
 @app.route('/search', methods=['POST'])
 def search_and_compare():
     query = request.json.get('query')
     if not query:
         return jsonify({"error": "Query not provided"}), 400
 
-    response = es.search(
-        index=index_name,
-        body={
-            "query": {
-                "match": {
-                    "sentence": query
-                }
-            },
-            "size": 10
-        }
-    )
+    search_query = {
+        "query": {
+            "more_like_this": {
+                "fields": ["sentence"],
+                "like": query,
+                "min_term_freq": 1,
+                "max_query_terms": 12
+            }
+        },
+        "size": 10  # Limit the number of documents retrieved
+    }
+
+    # Send search request to Elasticsearch
+    response = es.search(index=index_name, body=search_query)
+    response_data = response.json()
 
     results = []
-    for hit in response['hits']['hits']:
+    for hit in response_data['hits']['hits']:
         sentence = hit['_source']['sentence']
-        similarity = calculate_similarity(query, sentence)
-        results.append({"sentence": sentence, "similarity": similarity})
+        score = hit['_score']
+        results.append({"sentence": sentence, "score": score})
 
-    results = sorted(results, key=lambda x: x['similarity'], reverse=True)[:2]
+    # Sort results by score and get the highest score
+    results = sorted(results, key=lambda x: x['score'], reverse=True)
 
-    if results and results[0]['similarity'] > 0.8:
+    if results and results[0]['score'] > 35:
         return jsonify({"text": results[0]['sentence']})
     else:
         return jsonify({"text": "no similar sentence found"})
