@@ -2,9 +2,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from elasticsearch import Elasticsearch
 from difflib import SequenceMatcher
+from waitress import serve
 
 app = Flask(__name__)
-CORS(app)  # Kích hoạt CORS
+CORS(app)
 
 es = Elasticsearch(
     hosts=["https://d93143eb81aa40ae9b186eeee81a1adc.us-central1.gcp.cloud.es.io"],
@@ -14,11 +15,9 @@ es = Elasticsearch(
 
 index_name = "japanese_sentences"
 
-# Hàm tính độ tương đồng sử dụng SequenceMatcher
 def calculate_similarity(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
-# API endpoint để tìm kiếm và so sánh câu
 @app.route('/search', methods=['POST'])
 def search_and_compare():
     query = request.json.get('query')
@@ -43,7 +42,6 @@ def search_and_compare():
         similarity = calculate_similarity(query, sentence)
         results.append({"sentence": sentence, "similarity": similarity})
 
-    # Sắp xếp kết quả theo độ tương đồng và trả về top 2
     results = sorted(results, key=lambda x: x['similarity'], reverse=True)[:2]
 
     if results and results[0]['similarity'] > 0.8:
@@ -52,4 +50,4 @@ def search_and_compare():
         return jsonify({"text": "no similar sentence found"})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    serve(app, host='0.0.0.0', port=5001)
